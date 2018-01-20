@@ -13,13 +13,13 @@ so，就是这个啦
 
 ## 技术栈
 
-react + redux + react-router + webpack7 + fetch + less
+react@16.0 + redux@3.7.2 + react-router@3.2.0 + webpack@3.10.0 + fetch@2.0.3 + less@2.7.1 + antd@3.1.3
 
 
 
 ## 项目运行
 
-#### 注意：由于涉及大量的 ES6/7 等新属性，nodejs 必须是 6.0 以上版本 ，node 7 是先行版，有可能会出问题，建议使用 node 6 稳定版
+#### 注意：由于涉及大量的 ES6/7 等新属性，nodejs 必须是 6.0 以上版本 ，建议使用 node 最新LTS版
 
 ```
 git clone https://github.com/duxianwei520/react.git  
@@ -57,7 +57,6 @@ npm install -g cnpm --registry=https://registry.npm.taobao.org
 如果这个方法还不行的话，可以到我的百度网盘上面去下载我已经压缩好的npm依赖包，地址是
 ``` 
 https://pan.baidu.com/s/1c1MMUHU
-
 ```
 把下载到本地的node_modules.rar文件直接解压到跟app同级的当前文件夹，记住是当前文件夹的，然后不用npm install就可以直接npm start跑起来项目了。
 
