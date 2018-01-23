@@ -23,27 +23,6 @@ const table = (location, cb) => {
   }, 'table')
 }
 
-// 表格列表
-const table1 = (location, cb) => {
-  require.ensure([], require => {
-    cb(null, require('./pages/menu/table1').default)
-  }, 'table1')
-}
-
-// 表格列表
-const table2 = (location, cb) => {
-  require.ensure([], require => {
-    cb(null, require('./pages/menu/table2').default)
-  }, 'table2')
-}
-
-// 表格列表
-const table3 = (location, cb) => {
-  require.ensure([], require => {
-    cb(null, require('./pages/menu/table3').default)
-  }, 'table3')
-}
-
 // 图表
 const echarts = (location, cb) => {
   require.ensure([], require => {
@@ -79,11 +58,11 @@ const editor = (location, cb) => {
 }
 
 // kindEditor
-const kindEditor = (location, cb) => {
-  require.ensure([], require => {
-    cb(null, require('./pages/menu/kindEditor').default)
-  }, 'kindEditor')
-}
+// const kindEditor = (location, cb) => {
+//   require.ensure([], require => {
+//     cb(null, require('./pages/menu/kindEditor').default)
+//   }, 'kindEditor')
+// }
 
 /* 进入路由的判断*/
 function isLogin(nextState, replaceState) {
@@ -99,12 +78,8 @@ const routes = (
     <Route path="/" component={App} onEnter={isLogin}>
       <IndexRoute component={Welcome} />
       <Route path="/table" getComponent={table} />
-      <Route path="/table1" getComponent={table1} />
-      <Route path="/table2" getComponent={table2} />
-      <Route path="/table3" getComponent={table3} />
       <Route path="/echarts" getComponent={echarts} />
       <Route path="/editor" getComponent={editor} />
-      <Route path="/kindEditor" getComponent={kindEditor} />
 
       <Route path="/chat" getComponent={chat} />
 

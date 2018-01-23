@@ -66,7 +66,6 @@
     "echarts": "4.0.2",
     "immutable": "~3.8.1",
     "isomorphic-fetch": "~2.2.1",
-    "jquery": "^1.12.4",
     "moment": "~2.20.1",
     "rc-queue-anim": "^1.4.1",
     "rc-tween-one": "~1.7.3",
