@@ -1,9 +1,4 @@
-/*
- * @Author: dupi
- * @Date: 2017-06-28 17:16:12
- * @Last Modified by: duxianwei
- * @Last Modified time: 2017-12-15 16:25:20
- */
+
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Editor, EditorState, RichUtils } from 'draft-js'

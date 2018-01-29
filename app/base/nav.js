@@ -1,18 +1,16 @@
 import React, { Component } from 'react'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { routerActions } from 'react-router-redux'
+import { hashHistory, Link } from 'react-router'
+// import { routerActions } from 'react-router-redux'
 import { Menu, Icon, Spin } from 'antd'
 import { updateTabList } from 'actions/tabList'
 
-const SubMenu = Menu.SubMenu
+const { SubMenu } = Menu
 
-@connect(
-  (state, props) => ({ config: state.config }),
-  (dispatch) => ({ actions: bindActionCreators(routerActions, dispatch), dispatch: dispatch })
-)
+@connect((state, props) => ({
+  config: state.config,
+}))
 export default class LeftNav extends Component {
-
   constructor(props, context) {
     super(props, context)
 
@@ -41,16 +39,16 @@ export default class LeftNav extends Component {
         isLeftNavMini: true,
       })
     }
-    const menu = window.$GLOBALCONFIG.NAVIGATION
+    const menu = window.gconfig.nav
     const curPath = `${this.props.location.pathname.replace('/', '')}`
     // console.log(menu)
     let len = 0
     let curSub = 0
-    menu.map(item => {
+    menu.map((item) => {
       if (item.url && curPath === item.url) {
         curSub = len
       } else if (item.children && item.children.length > 0) {
-        item.children.map(record => {
+        item.children.map((record) => {
           if (curPath === record.url) {
             curSub = len
           }
@@ -66,20 +64,18 @@ export default class LeftNav extends Component {
     })
   }
 
-  _handleClick(e) {
-    const { actions } = this.props
-    // console.log('click ', e)
+  _handleClick = (e) => {
     this.setState({
       current: e.key,
       // openKeys: e.keyPath.slice(1),
     }, () => {
-      actions.push(e.key)
+      hashHistory.push(e.key)
       this.props.dispatch(updateTabList({ title: e.item.props.name, content: '', key: e.key }))
     })
   }
 
-  _handleToggle(openKeys) {
-    const state = this.state;
+  _handleToggle = (openKeys) => {
+    const { state } = this;
     const latestOpenKey = openKeys.find(key => !(state.openKeys.indexOf(key) > -1));
     const latestCloseKey = state.openKeys.find(key => !(openKeys.indexOf(key) > -1));
 
@@ -92,14 +88,15 @@ export default class LeftNav extends Component {
     }
     this.setState({ openKeys: nextOpenKeys });
   }
-  getAncestorKeys(key) {
+
+  getAncestorKeys = (key) => {
     const map = {
       sub3: ['sub2'],
     };
     return map[key] || [];
   }
   // 左侧菜单切换显示模式
-  navMini() {
+  navMini = () => {
     this.setState({
       isLeftNavMini: !this.state.isLeftNavMini,
     }, () => {
@@ -121,42 +118,37 @@ export default class LeftNav extends Component {
           </Menu.Item>
           // </SubMenu>
         )
-      } else {
-        return (
-          <SubMenu key={`sub${index}`} title={
+      }
+      return (
+        <SubMenu key={`sub${index}`}
+          title={
             <span>
               <Icon type="caret-down" title={item.name} />
               <span className="menu-name">{item.name}</span>
-            </span>}>
-            {
-              item.url ?
-                <Menu.Item key={item.url} name={item.name}>
-                  <Icon type={item.icon} title={item.name} />
-                  <span className="menu-name">{item.name}</span>
-                </Menu.Item> : null
-            }
+            </span>}
+        >
+          {
+            item.url ?
+              <Menu.Item key={item.url} name={item.name}>
+                <Icon type={item.icon} title={item.name} />
+                <span className="menu-name">{item.name}</span>
+              </Menu.Item> : null
+          }
 
-            {
-              item.children && item.children.length > 0 ? self.renderLeftNav(item.children) : null
-            }
-          </SubMenu>
-        )
-      }
+          {
+            item.children && item.children.length > 0 ? self.renderLeftNav(item.children) : null
+          }
+        </SubMenu>
+      )
     })
   }
 
   render() {
-    // const { loading } = this.props.navResult
-    // const navs = this.props.config.NAVIGATION || []
-    // console.log('this.props.location', this.props.location)
-    // const selectedKeys = [`${this.props.location.pathname.split('$')[0]}$`.replace('/', '')]
-
     const selectedKeys = [this.props.location.pathname.replace('/', '')]
-    // console.log(this.state.openKeys)
     return (
       <div className={this.state.isLeftNavMini ? 'LeftNavMini' : ''}>
         <nav id="mainnav-container" className="mainnav-container">
-          <div className="LeftNav-control" onClick={this.navMini}>
+          <div className="LeftNav-control" onClick={() => this.navMini()}>
             <i className="qqbicon qqbicon-navcontrol" />
           </div>
           <Spin spinning={false}>
@@ -168,7 +160,7 @@ export default class LeftNav extends Component {
               mode="inline"
               inlineIndent="12"
             >
-              {this.renderLeftNav(this.props.config.NAVIGATION || [])}
+              {this.renderLeftNav(this.props.config.nav || [])}
             </Menu>
           </Spin>
         </nav>

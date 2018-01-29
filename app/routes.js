@@ -3,7 +3,7 @@ import {
   Route,
   IndexRoute,
 } from 'react-router'
-import App from './containers/App'
+import App from './base'
 import Welcome from './pages/welcome'
 // import Login from './containers/App/login'
 
@@ -18,41 +18,41 @@ import Welcome from './pages/welcome'
 
 // 表格列表
 const table = (location, cb) => {
-  require.ensure([], require => {
+  require.ensure([], (require) => {
     cb(null, require('./pages/menu/table').default)
   }, 'table')
 }
 
 // 图表
 const echarts = (location, cb) => {
-  require.ensure([], require => {
+  require.ensure([], (require) => {
     cb(null, require('./pages/menu/echarts').default)
   }, 'echarts')
 }
 
 // 登录
 const Login = (location, cb) => {
-  require.ensure([], require => {
-    cb(null, require('./containers/App/login').default)
+  require.ensure([], (require) => {
+    cb(null, require('./pages/login').default)
   }, 'login')
 }
 
 // 注册
 const Register = (location, cb) => {
-  require.ensure([], require => {
-    cb(null, require('./containers/App/register').default)
+  require.ensure([], (require) => {
+    cb(null, require('./pages/register').default)
   }, 'register')
 }
 
 // 测试
 const chat = (location, cb) => {
-  require.ensure([], require => {
+  require.ensure([], (require) => {
     cb(null, require('./pages/chat').default)
   }, 'chat')
 }
 // 编辑器
 const editor = (location, cb) => {
-  require.ensure([], require => {
+  require.ensure([], (require) => {
     cb(null, require('./pages/menu/editor').default)
   }, 'editor')
 }
@@ -64,7 +64,7 @@ const editor = (location, cb) => {
 //   }, 'kindEditor')
 // }
 
-/* 进入路由的判断*/
+/* 进入路由的判断 */
 function isLogin(nextState, replaceState) {
   const token = sessionStorage.getItem('token')
   if (!token) {
@@ -84,8 +84,8 @@ const routes = (
       <Route path="/chat" getComponent={chat} />
 
     </Route>
-    <Route path="/login" getComponent={Login}></Route>
-    <Route path="/register" getComponent={Register}></Route>
+    <Route path="/login" getComponent={Login} />
+    <Route path="/register" getComponent={Register} />
   </Route>
 );
 

@@ -3,11 +3,9 @@ import { connect } from 'react-redux'
 import { Link, hashHistory } from 'react-router'
 import { Menu, Dropdown, Button, Modal, message } from 'antd'
 
-const confirm = Modal.confirm
+const { confirm } = Modal
 
-@connect(
-  (state, props) => ({ config: state.config })
-)
+@connect((state, props) => ({ config: state.config }))
 export default class Header extends Component {
   // 初始化页面常量 绑定事件方法
   constructor(props, context) {
@@ -52,7 +50,7 @@ export default class Header extends Component {
     })
   }
   render() {
-    const staff = this.state.staff
+    const { staff } = this.state
     const menu = (
       <Menu className="nav-dropmenu">
         <Menu.Item key="0">
@@ -72,7 +70,7 @@ export default class Header extends Component {
       <header id="navbar">
         <div id="navbar-container" className="boxed">
           <div className="navbar-header">
-            <Link to={'/'} className="navbar-brand">
+            <Link to="/" className="navbar-brand">
               <div className="brand-title">
                 <span className="brand-text">肚皮</span>
               </div>

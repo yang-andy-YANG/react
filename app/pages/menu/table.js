@@ -1,9 +1,4 @@
-/*
- * @Author: dupi
- * @Date: 2017-06-28 17:16:12
- * @Last Modified by: duxianwei
- * @Last Modified time: 2017-12-27 16:09:47
- */
+
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
@@ -20,12 +15,10 @@ const FormItem = Form.Item
 
 @Form.create({})
 
-@connect(
-  (state, props) => ({
+@connect((state, props) => ({
     config: state.config,
     houseCheckSearchResult: state.houseCheckSearchResult,
-  })
-)
+  }),)
 export default class app extends Component {
   constructor(props) {
     super(props)
@@ -126,9 +119,7 @@ export default class app extends Component {
                   rules: [{
                     required: false,
                   }],
-                })(
-                  <Input placeholder="请输入关键字" size="default" style={{ width: '200px' }} />
-                )
+                })(<Input placeholder="请输入关键字" size="default" style={{ width: '200px' }} />,)
               }
             </FormItem>
             <Button type="primary" onClick={this._handleSubmit}>确定</Button>
@@ -141,7 +132,7 @@ export default class app extends Component {
             columns={this.columns()}
             pagination={{ total: houseCheckSearchResult.totalCount, pageSize: houseCheckSearchResult.pageSize }}
             scroll={{ y: true }}
-            rowClassName={(record, index) => record.id === 1 ? 'red' : 'base'}
+            rowClassName={(record, index) => (record.id === 1 ? 'red' : 'base')}
           />
         </Spin>
       </div>

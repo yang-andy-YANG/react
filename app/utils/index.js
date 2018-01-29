@@ -1,7 +1,5 @@
 import { message } from 'antd'
-import {
-  hashHistory,
-} from 'react-router'
+import { hashHistory } from 'react-router'
 import * as ajaxFun from './ajax'
 
 export const ajax = ajaxFun
@@ -38,16 +36,12 @@ export const createAjaxAction = (api, startAction, endAction) => (data, cb, reje
       .then(() => {
         if (respon.status === 1) {
           cb && cb(respon)
+        } else if (respon.errorCode === '101') {
+          logOut()
+        } else if (typeof (reject) === 'function') {
+          reject(respon)
         } else {
-          if (respon.errorCode == '101') {
-            logOut()
-          } else {
-            if (typeof (reject) === 'function') {
-              reject(respon)
-            } else {
-              message.error(respon.msg)
-            }
-          }
+          message.error(respon.msg)
         }
       })
       .catch(catchError) // eslint-disable-line no-use-before-define
@@ -67,11 +61,11 @@ export const createAjaxAction = (api, startAction, endAction) => (data, cb, reje
       }
     })
     .catch(catchError) // eslint-disable-line no-use-before-define
-}*/
+} */
 
 export const hasResponseError = (data, errorHandler) => {
   // 101  表示非法获取数据 跳转到登陆页面
-  if (data && data.status == '-1') {
+  if (data && data.status === '-1') {
     logOut()
     return true
   }
@@ -81,8 +75,8 @@ export const hasResponseError = (data, errorHandler) => {
   // }
   // 如果是401  表示其他错误
   // if (data && data.errorCode == '401') {
-    // message.error(data.msg)
-    // return true
+  // message.error(data.msg)
+  // return true
   // }
   if (typeof data !== 'object') {
     try {
@@ -128,7 +122,7 @@ export const fakeAjaxAction = (startAction, endAction, callBackAction) => (data,
   dispatch(startAction())
   dispatch(endAction({ req: {}, res: { data: data } }))
   callBackAction && dispatch(callBackAction())
-}*/
+} */
 
 function catchError(error) {
   const { response } = error
@@ -152,37 +146,4 @@ function checkStatus(response) {
   const error = new Error(response.statusText)
   error.response = response
   throw error
-}
-// eslint-disable-next-line no-extend-native
-Date.prototype.format = function (fmt) { // author: meizz
-  const o = {
-    'M+': this.getMonth() + 1, // 月份
-    'd+': this.getDate(), // 日
-    'h+': this.getHours(), // 小时
-    'm+': this.getMinutes(), // 分
-    's+': this.getSeconds(), // 秒
-    'q+': Math.floor((this.getMonth() + 3) / 3), // 季度
-    S: this.getMilliseconds(), // 毫秒
-  };
-  if (/(y+)/.test(fmt)) {
-    // eslint-disable-next-line no-param-reassign
-    fmt = fmt.replace(RegExp.$1,
-      (`${this.getFullYear()}`).substr(4 - RegExp.$1.length));
-  }
-  for (const k in o) { // eslint-disable-line no-restricted-syntax
-    if (new RegExp(`(${k})`).test(fmt)) {
-      // eslint-disable-next-line no-param-reassign
-      fmt = fmt.replace(RegExp.$1,
-        (RegExp.$1.length === 1) ?
-          (o[k]) : ((`00${o[k]}`).substr((`${o[k]}`).length)));
-    }
-  }
-  return fmt;
-};
-
-
-export const getStepDate = (step) => {
-  const date = new Date()
-  date.setDate(date.getDate() + step)
-  return date.format('yyyy-MM-dd')
 }

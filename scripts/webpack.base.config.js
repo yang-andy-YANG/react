@@ -25,9 +25,9 @@ const webpackConfigBase = {
       api: path.join(__dirname, '/../app/api'),
       reducers: path.join(__dirname, '/../app/reducers'),
       utils: path.join(__dirname, '/../app/utils'),
-      constants: path.join(__dirname, '/../app/constants'),
       controllers: path.join(__dirname, '/../app/controllers'),
       style: path.join(__dirname, '/../app/style'),
+      images: path.join(__dirname, '/../app/images'),
     },
   },
   resolveLoader: {

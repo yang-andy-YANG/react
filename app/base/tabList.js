@@ -2,16 +2,18 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { routerActions } from 'react-router-redux'
-import { is } from 'immutable';
+import { is } from 'immutable'
 import { Tabs } from 'antd'
-import { updateTabChecked, deleteTabFromList } from '../../actions/tabList'
+import { updateTabChecked, deleteTabFromList } from 'actions/tabList'
 
-const TabPane = Tabs.TabPane
+const { TabPane } = Tabs
 
 @connect(
-    (state, props) => ({ tabList: state.tabListResult }),
-    (dispatch) => ({ actions: bindActionCreators(routerActions, dispatch),
-      dispatch: dispatch })
+  (state, props) => ({ tabList: state.tabListResult }),
+  dispatch => ({
+    actions: bindActionCreators(routerActions, dispatch),
+    dispatch: dispatch,
+  }),
 )
 export default class TabList extends Component {
   constructor(props) {
@@ -72,7 +74,7 @@ export default class TabList extends Component {
         onEdit={this.onEdit}
       >
         {
-          tabList.list.map((tab) =>
+          tabList.list.map(tab =>
             <TabPane tab={tab.title} key={tab.key}>{tab.content}</TabPane>)
         }
       </Tabs>

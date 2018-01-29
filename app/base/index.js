@@ -1,29 +1,23 @@
 
 import React, { Component } from 'react'
-import { bindActionCreators } from 'redux'
+// import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { message } from 'antd'
+import 'style/base.less'
 
 import Header from './header'
-import Footer from './footer'
-import LeftNav from './leftNav'
-import RightAside from './rightAside'
+import LeftNav from './nav'
 import TabList from './tabList'
-import Extra from './extra'
 
-import '../../style/base.less'
 
-@connect(
-    (state, props) => ({}),
-    (dispatch) => ({ actions: bindActionCreators({}, dispatch) })
-)
+@connect((state, props) => ({}))
 export default class App extends Component {
   // 初始化页面常量 绑定事件方法
   constructor(props, context) {
     super(props)
     this.state = {
       pageHeight: 0,
-      isLeftNavMini: false,   // 左侧导航菜单是否mini模式
+      isLeftNavMini: false, // 左侧导航菜单是否mini模式
     }
     this.isLeftNavMini = this.isLeftNavMini.bind(this)
   }
@@ -77,10 +71,7 @@ export default class App extends Component {
             location={location}
             leftNavMode={this.isLeftNavMini}
           />
-          <RightAside />
         </div>
-        <Footer />
-        <Extra />
       </div>
     )
   }
