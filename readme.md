@@ -39,8 +39,9 @@ npm run mock (对，就是传说中的 mockjs http://highsea90.com/t/mock/)
 npm run chat
 
 ```
-```
+
 对了，服务端返回的格式我们是这样子一个数据结构
+```
 {
   data: {
     totalCount: 100,
@@ -52,11 +53,15 @@ npm run chat
   msg: '',
   status: 1,
 }
-所有异步请求返回都会经过utils里面的index.js做处理，如果请求没有任何问题，那status返回值是1；如果请求错误，比如说参数错误
-或者其他报错之类的，那status返回值就是0；如果status值是-1，表示登录超时，那么就会跳出登录。
-这些参数都可以根据实际情况进行调整，报错或者成功的提示信息放在msg里面返回，用户可以自己控制是否显示出来，详情实例参照mock/datas/tableList.js的数据返回格式
 
 ```
+所有异步请求返回都会经过utils里面的index.js做处理，如果请求没有任何问题，那status返回值是1；
+如果请求错误，比如说参数错误或者其他报错之类的，那status返回值就是0；
+如果status值是-1，表示登录超时，那么就会跳出登录。
+这些参数都可以根据实际情况进行调整，报错或者成功的提示信息放在msg里面返回，
+用户可以自己控制是否显示出来，详情实例参照mock/datas/tableList.js的数据返回格式
+
+
 
 ## 说明
 
@@ -65,8 +70,11 @@ npm run chat
 >  开发环境 win10  Chrome 63.0.3239.132（正式版本） （32 位） nodejs 8.7.0
 
 >  如果npm install太慢导致有些npm依赖包下载失败 你可以看控制台的报错信息，再手动npm install 具体的开发包，推荐使用淘宝的注册源，直接运行，
+
 ```
 npm install -g cnpm --registry=https://registry.npm.taobao.org 
+
+```
 
 >  如有问题请直接在 Issues 中提，或者您发现问题并有非常好的解决方案，欢迎 PR 👍
 
@@ -96,129 +104,37 @@ npm install -g cnpm --registry=https://registry.npm.taobao.org
 
 
 
-
 ## 部分截图
 
 
 ### 列表页 mock数据返回
 
-<img src="https://github.com/duxianwei520/react/blob/master/screenshots/list.gif" width="1082" height="557"/>
+<img src="https://raw.githubusercontent.com/duxianwei520/react/master/screenshots/list.gif" width="1082" height="557"/>
 
 ### 图表
 
-<img src="https://github.com/duxianwei520/react/blob/master/screenshots/echart.gif" width="976" height="586"/>
+<img src="https://raw.githubusercontent.com/duxianwei520/react/master/screenshots/echart.gif" width="976" height="586"/>
 
 ### Facebook官方富文本编辑器draft.js
 
-<img src="https://github.com/duxianwei520/react/blob/master/screenshots/draft.gif" width="976" height="586"/>
+<img src="https://raw.githubusercontent.com/duxianwei520/react/master/screenshots/draft.gif" width="976" height="586"/>
 
 ### 聊天室
 
-<img src="https://github.com/duxianwei520/react/blob/master/screenshots/chat.gif" width="1331" height=""/>
+<img src="https://raw.githubusercontent.com/duxianwei520/react/master/screenshots/chat.gif" width="1331" height=""/>
 
 
 ### 构建完成的包的分析截图
 
-<img src="https://github.com/duxianwei520/react/blob/master/screenshots/analysis.png" width="1101" height="555"/>
+<img src="https://raw.githubusercontent.com/duxianwei520/react/master/screenshots/analysis.png" width="1101" height="555"/>
 
 
 ## 项目结构
 
 ```
-.
-├─.babelrc                            // babel的配置
-├─.eslintcache                        // eslint的缓存
-├─.eslintignore	                      // eslint设置忽略的文件
-├─.eslintrc.json                      // eslint的配置文件
-├─.gitignore                          // git忽略上传的文件
-├─package.json                        // npm命令包
-├─readme.md                           // 项目介绍 
-├─_gitattributes
-├─test
-|  └setup-test-env.js
-├─screenshots                         // 项目截图
-|      ├─list.png
-|      ├─login.png
-|      ├─receiveData.png
-|      ├─requestData.png
-├─app                                 // 页面主文件
-|  ├─client.js
-|  ├─history.js
-|  ├─index.html                       // 入口html文件，配置静态菜单等全局常见变量
-|  ├─routes.js                        // 路由配置
-|  ├─utils                            // 公用的文件
-|  |   ├─ajax.js                      // 发送异步获取数据的配置
-|  |   ├─config.js                    // 常用的配置
-|  |   └index.js                      // 发送异步数据前的准备工作
-|  ├─style                            // 样式库
-|  |   ├─base.less                    // 全局通用的样式
-|  |   └theme.less                    // 存放变量的less
-|  ├─store                            // redux的store的配置
-|  |   └configureStore.js
-|  ├─reducers                         // reduce的配置
-|  |    ├─common.js
-|  |    ├─house.js
-|  |    ├─index.js
-|  |    └tabList.js
-|  ├─pages                            // 项目绝大部分业务文件
-|  |   ├─welcome.js
-|  |   ├─test
-|  |   |  ├─index.js
-|  |   |  ├─sub.js
-|  |   |  └third.js
-|  |   ├─house
-|  |   |   ├─houseManage.js
-|  |   |   └index.js
-|  ├─middleware                       
-|  |     ├─index.js
-|  |     ├─logger.js
-|  |     └router.js
-|  ├─images                           // 图片文件夹
-|  |   ├─default.png
-|  |   ├─leftBg.jpg
-|  |   └navcontrol.png
-|  ├─iconfont
-|  |    ├─iconfont.eot
-|  |    ├─iconfont.svg
-|  |    ├─iconfont.ttf
-|  |    └iconfont.woff
-|  ├─containers                       // 全局的框架文件 
-|  |     ├─App
-|  |     |  ├─extra.js
-|  |     |  ├─footer.js
-|  |     |  ├─header.js
-|  |     |  ├─index.js
-|  |     |  ├─login.js
-|  |     |  ├─rightAside.js
-|  |     |  ├─tabList.js
-|  |     |  ├─leftNav
-|  |     |  |    └index.js
-|  ├─constants
-|  |     ├─actionTypes.js
-|  |     └index.js
-|  ├─components                        // 公用的组件库 
-|  |     ├─index.less
-|  |     ├─searchTable
-|  |     |      └index.js
-|  |     ├─searchForm
-|  |     |     └index.js
-|  |     ├─searchChosen
-|  |     |      └index.js
-|  |     ├─multiSelect
-|  |     |      └index.js
-|  ├─api                              // 整个项目API的url配置
-|  |  ├─common.js
-|  |  ├─house.js
-|  |  └index.js
-|  ├─actions                          // 整个项目的actions配置
-|  |    ├─common.js
-|  |    ├─house.js
-|  |    └tabList.js
 
 
 ```
-
-
 ## License
 
 [GPL](https://github.com/duxianwei520/react/blob/master/COPYING)
