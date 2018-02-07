@@ -1,20 +1,9 @@
 import React from 'react'
-import {
-  Route,
-  IndexRoute,
-} from 'react-router'
+import { Router, Route, IndexRoute } from 'react-router'
+import hashHistory from './history'
+
 import App from './base'
 import Welcome from './pages/welcome'
-// import Login from './containers/App/login'
-
-// import {
-//   houseCheck,
-//   houseManage,
-//   houseDetail,
-//   roomDetail,
-// } from './pages/house'
-
-// import popCheck from './pages/pop/index'
 
 // 表格列表
 const table = (location, cb) => {
@@ -57,13 +46,6 @@ const editor = (location, cb) => {
   }, 'editor')
 }
 
-// kindEditor
-// const kindEditor = (location, cb) => {
-//   require.ensure([], require => {
-//     cb(null, require('./pages/menu/kindEditor').default)
-//   }, 'kindEditor')
-// }
-
 /* 进入路由的判断 */
 function isLogin(nextState, replaceState) {
   const token = sessionStorage.getItem('token')
@@ -73,20 +55,18 @@ function isLogin(nextState, replaceState) {
   }
 }
 
-const routes = (
-  <Route>
+export default () => (
+  <Router history={hashHistory}>
     <Route path="/" component={App} onEnter={isLogin}>
       <IndexRoute component={Welcome} />
       <Route path="/table" getComponent={table} />
       <Route path="/echarts" getComponent={echarts} />
       <Route path="/editor" getComponent={editor} />
-
       <Route path="/chat" getComponent={chat} />
-
     </Route>
     <Route path="/login" getComponent={Login} />
     <Route path="/register" getComponent={Register} />
-  </Route>
-);
+  </Router>
+)
 
-export default routes
+// export default routes

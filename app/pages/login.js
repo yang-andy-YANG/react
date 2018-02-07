@@ -48,9 +48,6 @@ export default class Login extends Component {
             const query = this.props.form.getFieldsValue()
             global.gconfig.staff = res.data.user
             // sessionStorage.setItem('staff', JSON.stringify({ ...res.data.user }))
-            // sessionStorage.setItem('username', query.username)
-            // sessionStorage.setItem('userName', res.data.user.userName)
-            // sessionStorage.setItem('userpwd', query.password)
             // sessionStorage.setItem('token', res.data.token)
             // sessionStorage.setItem('isLeftNavMini', false)
             // hashHistory.push('/')
@@ -61,9 +58,8 @@ export default class Login extends Component {
             loading: false,
           })
         }))
-        sessionStorage.setItem('token', 'dupi')
-        // sessionStorage.setItem('username', values.username)
-        hashHistory.push('/')
+        // sessionStorage.setItem('token', 'dupi')
+        // hashHistory.push('/')
       }
     })
   }
@@ -79,7 +75,7 @@ export default class Login extends Component {
     // this.props.dispatch(fetchLogin({ currentPage: 1 }))
   }
 
-  checkName(rule, value, callback) {
+  checkName = (rule, value, callback) => {
     // const { validateFields } = this.props.form
     if (value) {
       // validateFields([''])
@@ -87,7 +83,7 @@ export default class Login extends Component {
     callback()
   }
 
-  checkPass(rule, value, callback) {
+  checkPass = (rule, value, callback) => {
     // const { validateFields } = this.props.form
     if (value) {
       // validateFields([''])
@@ -95,9 +91,7 @@ export default class Login extends Component {
     callback()
   }
 
-  noop() {
-    return false
-  }
+  noop = () => false
 
   render() {
     const { getFieldDecorator } = this.props.form

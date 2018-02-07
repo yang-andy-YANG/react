@@ -1,22 +1,10 @@
 @import "./theme.less";
 
-html,
-body {
-  min-width: 290px;
-  -ms-overflow-style: scrollbar;
-  overflow: hidden;
-}
-body {
-  background-color: #e7ebee;
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 12px;
-  color: #515151;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased !important;
-}
+html, body { min-width: 290px; -ms-overflow-style: scrollbar; overflow: hidden;}
+body {background-color: #e7ebee; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px; color: #515151; -moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased !important;}
 
-.flex-column{ flex:1; display: flex; flex-direction: column;}
-.flex-row{ flex:1; display: flex; flex-direction: row;}
+.flexcolumn{ flex:1; display: flex; flex-direction: column;}
+.flexrow{ flex:1; display: flex; flex-direction: row;}
 // 动画缓冲效果
 .effect .navbar-content,
 .effect #navbar,
@@ -101,7 +89,9 @@ body {
 }
 
 
-.ant-tabs-bar{ margin-bottom: 0;}
+.ant-tabs{ height: 40px;
+  .ant-tabs-bar{ margin-bottom: 0;}
+}
 // 滚动条
 ::-webkit-scrollbar{ width: 14px; height: 14px;}
 ::-webkit-scrollbar-track,
@@ -150,5 +140,5 @@ body {
 .page .ant-table-scroll,
 .page .ant-table-body
 {
-  .flex-column;
+  .flexcolumn;
 }

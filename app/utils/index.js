@@ -15,33 +15,39 @@ const logOut = () => {
 export const createAjaxAction = (api, startAction, endAction) => (data, cb, reject) =>
   (dispatch) => {
     let respon
+    let newData = data
     startAction && dispatch(startAction())
-    // eslint-disable-next-line no-param-reassign
     // 每个请求带上token
     const token = sessionStorage.getItem('token')
     if (token) {
-      if (!data) {
-        data = {}
+      if (!newData) {
+        newData = {}
       }
-      data.token = token || null
+      newData.token = token || null
     }
-    data = isArray(data) ? data : [data]
-    api(...data)
+    newData = isArray(newData) ? newData : [newData]
+    api(...newData)
       .then(checkStatus) // eslint-disable-line no-use-before-define
       .then(response => response.json())
       .then((resp) => {
         respon = resp
-        endAction && dispatch(endAction({ req: data, res: resp }))
+        endAction && dispatch(endAction({ req: newData, res: resp }))
       })
       .then(() => {
-        if (respon.status === 1) {
+        switch (respon.status) {
+        case 1:
           cb && cb(respon)
-        } else if (respon.errorCode === '101') {
+          break
+        case 0:
+          if (typeof (reject) === 'function') {
+            reject(respon)
+          } else {
+            message.error(respon.msg)
+          }
+          break
+        default:
+          console.log('status的返回值不是0或1')
           logOut()
-        } else if (typeof (reject) === 'function') {
-          reject(respon)
-        } else {
-          message.error(respon.msg)
         }
       })
       .catch(catchError) // eslint-disable-line no-use-before-define
@@ -63,7 +69,7 @@ export const createAjaxAction = (api, startAction, endAction) => (data, cb, reje
     .catch(catchError) // eslint-disable-line no-use-before-define
 } */
 
-export const hasResponseError = (data, errorHandler) => {
+/* export const hasResponseError = (data, errorHandler) => {
   // 101  表示非法获取数据 跳转到登陆页面
   if (data && data.status === '-1') {
     logOut()
@@ -95,7 +101,7 @@ export const hasResponseError = (data, errorHandler) => {
   }
 
   return false
-};
+}; */
 
 /* export const createApiCustomAjax = (api, startAction, endAction) => (data, apiParam, cb) =>
   (dispatch) => {

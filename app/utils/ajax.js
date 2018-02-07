@@ -54,7 +54,7 @@ export const fetchJSONByPost = (url, target) => query =>
   fetchJSON(url, query, target)
 
 
-export const fetchJSONStringByPost = url => (query) => {
+/* export const fetchJSONStringByPost = url => (query) => {
   const params = {
     method: 'POST',
     body: query,
@@ -64,3 +64,4 @@ export const fetchJSONStringByPost = url => (query) => {
   }
   return fetchJSON(url, params)
 }
+ */
