@@ -58,8 +58,8 @@ export default class Login extends Component {
             loading: false,
           })
         }))
-        // sessionStorage.setItem('token', 'dupi')
-        // hashHistory.push('/')
+        sessionStorage.setItem('token', 'dupi')
+        hashHistory.push('/')
       }
     })
   }
