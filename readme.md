@@ -41,6 +41,7 @@ npm run chat
 ```
 
 对了，服务端返回的格式我们是这样子一个数据结构
+
 ```
 {
   data: {
@@ -61,6 +62,21 @@ npm run chat
 这些参数都可以根据实际情况进行调整，报错或者成功的提示信息放在msg里面返回，
 用户可以自己控制是否显示出来，详情实例参照mock/datas/tableList.js的数据返回格式
 
+这个react的项目我有在跟nodejs的express框架配合做接口的开发，可以不靠后端输出数据库真实的数据，仓库地址在
+
+```
+https://github.com/duxianwei520/express
+
+```
+还有一个原生的nodejs版本的，仓库库地址是
+
+```
+https://github.com/duxianwei520/node
+
+```
+基本功能差不多，目前实现了注册登录以及获取用户信息等3个接口的真实api
+
+#### 注意：如果你更新代码发现登录界面进不去，而且没有用到真实的api，那就进入login.js里直接在handleSubmit方法里面把sessionStorage.setItem('token', 'dupi');hashHistory.push('/');这两行的注释打开，用户名密码界面不报错就可以登录跳转到内页
 
 
 ## 说明
@@ -75,6 +91,7 @@ npm run chat
 npm install -g cnpm --registry=https://registry.npm.taobao.org 
 
 ```
+
 
 >  如有问题请直接在 Issues 中提，或者您发现问题并有非常好的解决方案，欢迎 PR 👍
 
@@ -109,24 +126,24 @@ npm install -g cnpm --registry=https://registry.npm.taobao.org
 
 ### 列表页 mock数据返回
 
-<img src="https://raw.githubusercontent.com/duxianwei520/react/master/screenshots/list.gif" width="1082" height="557"/>
+<img src="https://raw.githubusercontent.com/duxianwei520/resource/master/react/screenshots/list.gif" width="1082" height="557"/>
 
 ### 图表
 
-<img src="https://raw.githubusercontent.com/duxianwei520/react/master/screenshots/echart.gif" width="976" height="586"/>
+<img src="https://raw.githubusercontent.com/duxianwei520/resource/master/react/screenshots/echart.gif" width="976" height="586"/>
 
 ### Facebook官方富文本编辑器draft.js
 
-<img src="https://raw.githubusercontent.com/duxianwei520/react/master/screenshots/draft.gif" width="976" height="586"/>
+<img src="https://raw.githubusercontent.com/duxianwei520/resource/master/react/screenshots/draft.gif" width="976" height="586"/>
 
 ### 聊天室
 
-<img src="https://raw.githubusercontent.com/duxianwei520/react/master/screenshots/chat.gif" width="1331" height=""/>
+<img src="https://raw.githubusercontent.com/duxianwei520/resource/master/react/screenshots/chat.gif" width="1331" height=""/>
 
 
 ### 构建完成的包的分析截图
 
-<img src="https://raw.githubusercontent.com/duxianwei520/react/master/screenshots/analysis.png" width="1101" height="555"/>
+<img src="https://raw.githubusercontent.com/duxianwei520/resource/master/react/screenshots/analysis.png" width="1101" height="555"/>
 
 
 ## 项目结构
@@ -207,8 +224,6 @@ npm install -g cnpm --registry=https://registry.npm.taobao.org
 ├── package-lock.json
 ├── package.json
 ├── readme.md
-├── screenshots
-│   └── analysis.png
 ├── scripts
 │   ├── chatServer.js
 │   ├── webpack.base.config.js

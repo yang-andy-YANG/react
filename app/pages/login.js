@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { hashHistory, Link } from 'react-router'
 import { Spin, message, Form, Icon, Input, Button, Row, Col } from 'antd'
-import { fetchLogin } from 'actions/common'
+import { fetchLogin, userInfo } from 'actions/common'
 
 const FormItem = Form.Item
 
@@ -45,12 +45,19 @@ export default class Login extends Component {
           console.log(res)
           message.success(res.msg)
           if (res.status === 1) {
-            const query = this.props.form.getFieldsValue()
-            global.gconfig.staff = res.data.user
+            // const query = this.props.form.getFieldsValue()
+            // global.gconfig.staff = res.data.user
             // sessionStorage.setItem('staff', JSON.stringify({ ...res.data.user }))
             // sessionStorage.setItem('token', res.data.token)
             // sessionStorage.setItem('isLeftNavMini', false)
             // hashHistory.push('/')
+            this.props.dispatch(userInfo(values, (response) => {
+              console.log(response)
+              sessionStorage.setItem('token', response.data.token)
+              hashHistory.push('/')
+            }, (response) => {
+              message.warning(response)
+            }))
           }
         }, (res) => {
           message.warning(res.msg)

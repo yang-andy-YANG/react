@@ -31,6 +31,7 @@ export function fetchJSON(url, params, target) {
   const data = {
     method: 'POST',
     'Content-Type': 'application/json',
+    credentials: 'include',
     body: JSON.stringify(params),
   }
   let newUrl
