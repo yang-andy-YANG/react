@@ -4,8 +4,6 @@ const _filter = require('./interfaceFilter')
 const Mock = require('mockjs')
 
 http.createServer((req, res) => {
-  console.log(req)
-  console.log(res)
   res.writeHead(200, {
     // 'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': req.headers.origin,
