@@ -14,7 +14,7 @@ export const createAjaxAction = (httpHandle, startAction, endAction) => (reqData
     httpHandle(reqData, handleCancel)
       .then((resp) => {
         cb && cb(resp.data)
-        endAction && dispatch(endAction({ req: reqData, res: resp }))
+        endAction && dispatch(endAction({ req: reqData, res: resp.data }))
       })
       .catch((error) => {
         reject(error)
