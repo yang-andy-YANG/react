@@ -19,6 +19,7 @@ export default class LeftNav extends Component {
       current: pathname,
       openKeys: ['sub1'],
       isLeftNavMini: false,
+      collapsed: false,
     }
 
     this._handleClick = this._handleClick.bind(this)
@@ -32,11 +33,13 @@ export default class LeftNav extends Component {
     if (sessionStorage.getItem('isLeftNavMini') == 'false') {
       this.setState({
         isLeftNavMini: false,
+        collapsed: false,
       })
     }
     if (sessionStorage.getItem('isLeftNavMini') == 'true') {
       this.setState({
         isLeftNavMini: true,
+        collapsed: true,
       })
     }
     const menu = window.gconfig.nav
@@ -99,6 +102,7 @@ export default class LeftNav extends Component {
   navMini = () => {
     this.setState({
       isLeftNavMini: !this.state.isLeftNavMini,
+      collapsed: !this.state.collapsed,
     }, () => {
       // console.log(this.state.isLeftNavMini)
       this.props.leftNavMode(this.state.isLeftNavMini)
@@ -159,6 +163,7 @@ export default class LeftNav extends Component {
               selectedKeys={selectedKeys}
               mode="inline"
               inlineIndent="12"
+              inlineCollapsed={this.state.collapsed}
             >
               {this.renderLeftNav(this.props.config.nav || [])}
             </Menu>
