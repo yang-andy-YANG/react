@@ -7,78 +7,16 @@ export function isArray(arr) {
   return Object.prototype.toString.call(arr) === '[object Array]'
 }
 
-const logOut = () => {
-  sessionStorage.clear()
-  hashHistory.push('/login')
-}
-
-export const createAjaxAction = (api, startAction, endAction) => (data, cb, reject) =>
+export const createAjaxAction = (httpHandle, startAction, endAction) => (reqData, cb, reject, handleCancel) =>
   (dispatch) => {
-    let respon
-    let newData = data
+    // requet start
     startAction && dispatch(startAction())
-    // 每个请求带上token
-    const token = sessionStorage.getItem('token')
-    if (token) {
-      if (!newData) {
-        newData = {}
-      }
-      newData.token = token || null
-    }
-    newData = isArray(newData) ? newData : [newData]
-    api(...newData)
-      .then(response => response.json())
+    httpHandle(reqData, handleCancel)
       .then((resp) => {
-        respon = resp
-        endAction && dispatch(endAction({ req: newData, res: resp }))
+        cb && cb(resp.data)
+        endAction && dispatch(endAction({ req: reqData, res: resp }))
       })
-      .then(() => {
-        switch (respon.status) {
-        case 1:
-          cb && cb(respon)
-          break
-        case 0:
-          if (typeof (reject) === 'function') {
-            reject(respon)
-          } else {
-            message.error(respon.msg)
-          }
-          break
-        case -1:
-          logOut()
-          break
-        default:
-          console.log('status的返回值不是0或1')
-          // logOut()
-        }
+      .catch((error) => {
+        reject(error)
       })
-      .catch(error => console.log(error)) // eslint-disable-line no-use-before-define
-
-    /* api({ ...newData })
-      .then(response => response.data)
-      .then((resp) => {
-        respon = resp
-        endAction && dispatch(endAction({ req: newData, res: resp }))
-      })
-      .then(() => {
-        switch (respon.status) {
-        case 1:
-          cb && cb(respon)
-          break
-        case 0:
-          if (typeof (reject) === 'function') {
-            reject(respon)
-          } else {
-            message.error(respon.msg)
-          }
-          break
-        case -1:
-          logOut()
-          break
-        default:
-          console.log('status的返回值不是0或1')
-          // logOut()
-        }
-      })
-      .catch(catchError) // eslint-disable-line no-use-before-define */
   }
