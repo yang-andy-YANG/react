@@ -13,13 +13,8 @@ export const createAjaxAction = (httpHandle, startAction, endAction) => (reqData
     startAction && dispatch(startAction())
     httpHandle(reqData, handleCancel)
       .then((resp) => {
-<<<<<<< .mine
         endAction && dispatch(endAction({ req: reqData, res: resp.data }))
         return resp.data
-=======
-        cb && cb(resp.data)
-        endAction && dispatch(endAction({ req: reqData, res: resp.data }))
->>>>>>> .theirs
       })
       .then((resp) => {
         switch (resp.status) {
