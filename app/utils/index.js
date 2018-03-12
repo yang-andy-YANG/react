@@ -32,6 +32,10 @@ export const createAjaxAction = (httpHandle, startAction, endAction) => (reqData
         }
       })
       .catch((error) => {
-        reject({ status: 0, msg: error.message })
+        if (reject) {
+          reject({ status: 0, msg: error.message })
+        } else {
+          message.error(error.message)
+        }
       })
   }
