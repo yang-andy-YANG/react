@@ -9,14 +9,13 @@ const axiosBaseConfig = {
   headers: { 'Content-Type': 'text/plain' },
   method: 'post',
   // 跨域请求，是否带上认证信息
-  // withCredentials: true, // default
+  withCredentials: true, // default
   // http返回的数据类型
   // 默认是json，可选'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'
   responseType: 'json', // default
   // http请求返回状态码检查
-  validateStatus: (status) => {
-    return status >= 200 && status < 300 // default
-  },
+  validateStatus: status =>
+    status >= 200 && status < 300, // default
   // 请求数据预处理
   transformRequest: [(data, headers) => {
     // 加入token？
@@ -31,7 +30,7 @@ const axiosBaseConfig = {
     return data
   }],
   // 返回数据预处理
-  transformResponse: [(respData) => {
+  transformResponse: [respData =>
     // 检查返回status值
     // if (typeof respData.status !== 'undefined') {
     //   if (respData.status === 1) {
@@ -39,22 +38,17 @@ const axiosBaseConfig = {
     //   }
     //   throw new Error(respData.errMsg || 'respData.status不为0')
     // }
-    return respData
-  }],
+    respData,
+  ],
 }
 // axios 实例
 const axiosInstance = axios.create(axiosBaseConfig)
 // 拦截器
-axiosInstance.interceptors.request.use((req) => {
-  return req
-}, (error) => {
+axiosInstance.interceptors.request.use(req => req, error =>
   // 当请求错误时
-  return Promise.reject(error)
-})
+  Promise.reject(error))
 
-axiosInstance.interceptors.response.use((resp) => {
-  return resp
-}, (error) => {
+axiosInstance.interceptors.response.use(resp => resp, (error) => {
   // 当返回错误时
   if (axios.isCancel(error)) {
     return Promise.reject(new Error('请求被取消'))
