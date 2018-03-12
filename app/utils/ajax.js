@@ -2,7 +2,6 @@ import fetch from 'isomorphic-fetch'
 import axios from 'axios'
 import { prefix, suffix, timeout } from '../config'
 
-const CancelToken = axios.CancelToken
 // axios配置
 const axiosBaseConfig = {
   // baseURL: prefix,
@@ -34,12 +33,12 @@ const axiosBaseConfig = {
   // 返回数据预处理
   transformResponse: [(respData) => {
     // 检查返回status值
-    if (typeof respData.status !== 'undefined') {
-      if (respData.status === 1) {
-        return respData
-      }
-      throw new Error(respData.errMsg || 'respData.status不为0')
-    }
+    // if (typeof respData.status !== 'undefined') {
+    //   if (respData.status === 1) {
+    //     return respData
+    //   }
+    //   throw new Error(respData.errMsg || 'respData.status不为0')
+    // }
     return respData
   }],
 }
@@ -57,6 +56,12 @@ axiosInstance.interceptors.response.use((resp) => {
   return resp
 }, (error) => {
   // 当返回错误时
+  if (axios.isCancel(error)) {
+    return Promise.reject(new Error('请求被取消'))
+  }
+  if ('code' in error && error.code === 'ECONNABORTED') {
+    return Promise.reject(new Error('请求超时'))
+  }
   return Promise.reject(error)
 })
 

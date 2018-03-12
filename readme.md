@@ -95,6 +95,20 @@ npm install -g cnpm --registry=https://registry.npm.taobao.org
 
 >  如有问题请直接在 Issues 中提，或者您发现问题并有非常好的解决方案，欢迎 PR 👍
 
+### 取消http请求示例：
+```
+import axios from 'axios'
+const axiosHandle = axios.CancelToken.source()
+
+login(){
+  this.props.dispatch(fetchLogin(values, (res) => {},(error)=>{},axiosHandle)
+  取消请求的操作
+  setTimeout(() => {
+    axiosHandle.cancel('手动取消。')
+  }, 3000)
+}
+
+```
 
 
 ## 功能一览

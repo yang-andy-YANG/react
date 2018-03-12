@@ -13,10 +13,25 @@ export const createAjaxAction = (httpHandle, startAction, endAction) => (reqData
     startAction && dispatch(startAction())
     httpHandle(reqData, handleCancel)
       .then((resp) => {
-        cb && cb(resp.data)
-        endAction && dispatch(endAction({ req: reqData, res: resp }))
+        endAction && dispatch(endAction({ req: reqData, res: resp.data }))
+        return resp.data
+      })
+      .then((resp) => {
+        switch (resp.status) {
+          case 1:
+            cb && cb(resp)
+            break
+          case 0:
+          default:
+            if (reject) {
+              reject(resp)
+            } else {
+              message.error(resp.msg)
+            }
+            break
+        }
       })
       .catch((error) => {
-        reject(error)
+        reject({ status: 0, msg: error.message })
       })
   }
