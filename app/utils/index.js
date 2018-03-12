@@ -18,17 +18,21 @@ export const createAjaxAction = (httpHandle, startAction, endAction) => (reqData
       })
       .then((resp) => {
         switch (resp.status) {
-          case 1:
-            cb && cb(resp)
-            break
-          case 0:
-          default:
-            if (reject) {
-              reject(resp)
-            } else {
-              message.error(resp.msg)
-            }
-            break
+        case 1:
+          cb && cb(resp)
+          break
+        case 0:
+        default:
+          if (resp.status.toString() === '-1') {
+            sessionStorage.clear()
+            hashHistory.push('/login')
+          }
+          if (reject) {
+            reject(resp)
+          } else {
+            message.error(resp.msg)
+          }
+          break
         }
       })
       .catch((error) => {

@@ -26,7 +26,8 @@ export default class welcome extends Component {
     this.props.dispatch(userInfo({}, (response) => {
       console.log(response)
     }, (response) => {
-      message.warning(response)
+      console.log(response)
+      // message.warning(response)
     }))
   }
 
