@@ -85,7 +85,7 @@ const webpackConfigBase = {
       template: resolve('../app/index.html'),
     }),
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'client', // 入口文件名
+      name: 'common', // 入口文件名
       filename: 'common.bundle.js', // 打包后的文件名
       minChunks: function (module, count) {
         return module.resource &&
