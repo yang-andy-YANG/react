@@ -37,36 +37,22 @@ export default class Login extends Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        // this.state.loading = true
-        // console.log(values)
-        // this.setState({loading: true})
         Object.keys(values).map(key => values[key] = (values[key] && values[key].trim()))
         this.props.dispatch(fetchLogin(values, (res) => {
-          console.log(res)
           message.success(res.msg)
-          if (res.status === 1) {
-            // const query = this.props.form.getFieldsValue()
-            // global.gconfig.staff = res.data.user
-            // sessionStorage.setItem('staff', JSON.stringify({ ...res.data.user }))
-            // sessionStorage.setItem('token', res.data.token)
-            // sessionStorage.setItem('isLeftNavMini', false)
-            // hashHistory.push('/')
-            this.props.dispatch(userInfo(values, (response) => {
-              console.log(response)
-              sessionStorage.setItem('token', response.data.token)
-              hashHistory.push('/')
-            }, (response) => {
-              message.warning(response)
-            }))
-          }
+          sessionStorage.setItem('username', values.username)
+          this.props.dispatch(userInfo(values, (response) => {
+            sessionStorage.setItem('token', response.data.token)
+            hashHistory.push('/')
+          }, (response) => {
+            message.warning(response)
+          }))
         }, (res) => {
           message.warning(res.msg)
           this.setState({
             loading: false,
           })
         }))
-        sessionStorage.setItem('token', 'dupi')
-        hashHistory.push('/')
       }
     })
   }
