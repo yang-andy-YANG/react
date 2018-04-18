@@ -36,6 +36,7 @@ export default class Header extends Component {
       title: '提示',
       content: '确认退出登录吗？',
       onOk() {
+        sessionStorage.clear()
         // self.props.dispatch(fetchLogout({}, (result) => {
         //   // console.log(result)
         //   if (result.status == 1) {

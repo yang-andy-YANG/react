@@ -1,7 +1,11 @@
 const tableList = require('./datas/tableList')
+const login = require('./datas/login')
+const userInfo = require('./datas/userInfo')
 
-const prefix = '.json'
+const suffix = '.json'
 
 module.exports = {
-  [`/tableList${prefix}`]: tableList,
+  [`/login${suffix}`]: login,
+  [`/userInfo${suffix}`]: userInfo,
+  [`/tableList${suffix}`]: tableList,
 }

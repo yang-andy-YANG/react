@@ -10,11 +10,9 @@ import 'style/im.less'
 const FormItem = Form.Item
 @Form.create()
 
-@connect(
-    (state, props) => ({
-      config: state.config,
-    })
-)
+@connect((state, props) => ({
+  config: state.config,
+}))
 
 export default class popCheck extends Component {
   constructor(props) {
@@ -69,19 +67,19 @@ export default class popCheck extends Component {
     const url = location.hostname
     that.socket = io.connect(`http://${url}:3333/`)
 
-      // 测试是否链接上websocket
+    // 测试是否链接上websocket
     that.socket.on('connect', () => console.log('连接socket服务器成功'))
 
     that.socket.emit('login', sessionStorage.getItem('username'))
 
-      // 有新的消息发送
+    // 有新的消息发送
     that.socket.on('newMsg', (user, msg, color) => {
       this._displayNewMsg(user, msg, color)
     })
 
-      // 登录聊天室成功
+    // 登录聊天室成功
     that.socket.on('loginSuccess', (nickName, users) => {
-        // console.log(users)
+      // console.log(users)
       const arr = []
       users.map((item, index) => {
         arr.push({ name: item, id: index })
@@ -93,7 +91,7 @@ export default class popCheck extends Component {
       })
     })
 
-      // 用户名重名
+    // 用户名重名
     that.socket.on('nickExisted', (nickName, users) => {
       message.error('登录用户名重复，请重新登录设置不同的用户名', 5)
       setTimeout(() => {
@@ -101,14 +99,14 @@ export default class popCheck extends Component {
       }, 3000)
     })
 
-      // 监听错误消息
+    // 监听错误消息
     that.socket.on('error', (err) => {
-        // console.log(err)
+      // console.log(err)
     })
 
-      // 监听系统消息
+    // 监听系统消息
     this.socket.on('system', (nickName, users, type) => {
-        // console.log(nickName, users, type)
+      // console.log(nickName, users, type)
       if (users.length) {
         const arr = []
         users.map((item, index) => {
@@ -139,7 +137,8 @@ export default class popCheck extends Component {
     const { recordList } = this.state
     let obj = {}
     const id = recordList.length + 1
-    const time = (new Date()).format('yyyy-MM-dd hh:mm:ss')
+    // const time = (new Date()).format('yyyy-MM-dd hh:mm:ss')
+    const time = (new Date()).toLocaleString()
     const msgNew = this._showEmoji(msg)
     // 如果是自己发的消息
     if (user === sessionStorage.getItem('username')) {
@@ -195,13 +194,13 @@ export default class popCheck extends Component {
       <div className="emojis" id="emojis">
         {
           emojis.map(item =>
-            <span
+            (<span
               key={item}
               title={item}
               className="face"
               onClick={() => this.faceClick(item)}
-            ><img src={`${url}images/emoji/${item}.gif`} /></span>
-          )
+            ><img src={`${url}images/emoji/${item}.gif`} />
+             </span>))
         }
       </div>
     )
@@ -259,7 +258,7 @@ export default class popCheck extends Component {
     const key = e.target.value.trim()
     const { users } = this.state
     const arr = []
-    users.map(item => {
+    users.map((item) => {
       if (item.name.indexOf(key) > -1) {
         arr.push(item)
       }
@@ -282,7 +281,9 @@ export default class popCheck extends Component {
   }
 
   render() {
-    const { showIm, recordList, usersTem, count } = this.state
+    const {
+      showIm, recordList, usersTem, count,
+    } = this.state
     const { getFieldDecorator } = this.props.form
     // console.log(recordList)
     return (
@@ -294,19 +295,19 @@ export default class popCheck extends Component {
                 <div className="search">
                   <Input
                     type="text"
-                    onChange={(e) => this.handleSearch(e)}
+                    onChange={e => this.handleSearch(e)}
                     placeholder="输入关键字查询"
                   />
                 </div>
                 <ul>
-                {
-                  usersTem.map(item => (
-                    <li key={item.name} className={item.name === sessionStorage.getItem('username') ? 'on' : ''}>
-                      <Icon type="github" />
-                      <span className="name" title={item.name}>{item.name}</span>
-                    </li>
-                  ))
-                }
+                  {
+                    usersTem.map(item => (
+                      <li key={item.name} className={item.name === sessionStorage.getItem('username') ? 'on' : ''}>
+                        <Icon type="github" />
+                        <span className="name" title={item.name}>{item.name}</span>
+                      </li>
+                    ))
+                  }
                 </ul>
               </div>
               <div className="im-r">
@@ -322,7 +323,7 @@ export default class popCheck extends Component {
 
                   <div className="record-list" id="recordList">
                     {
-                      recordList.map(item => {
+                      recordList.map((item) => {
                         if (item.type === 'system') { // 系统消息
                           return (
                             <div key={item.id} className="system">
@@ -343,10 +344,10 @@ export default class popCheck extends Component {
                             <div className="item-content">
                               {
                                 item.isSelf ? null :
-                                (<p className="title">
-                                  <span className="name">{item.name}</span>
-                                  <span className="time">{item.time}</span>
-                                </p>)
+                                  (<p className="title">
+                                    <span className="name">{item.name}</span>
+                                    <span className="time">{item.time}</span>
+                                   </p>)
                               }
 
                               <div className="content">
@@ -369,7 +370,7 @@ export default class popCheck extends Component {
                       <div className="tool">
                         <span className="tool-l">
                           <span className="tools tools-face" title="表情">
-                            <Dropdown overlay={this._initEmoji()} placement={'topLeft'} trigger={['click']}>
+                            <Dropdown overlay={this._initEmoji()} placement="topLeft" trigger={['click']}>
                               <Icon type="smile-o" />
                             </Dropdown>
                           </span>
@@ -386,12 +387,11 @@ export default class popCheck extends Component {
                               rules: [
                                 { required: false, message: '请输入要发送的消息' },
                               ],
-                            })(
-                              <Input
-                                type="textarea"
-                                placeholder="在这里输入信息"
-                                onKeyUp={(e) => this.handleEnter(e)}
-                              />)
+                            })(<Input
+                              type="textarea"
+                              placeholder="在这里输入信息"
+                              onKeyUp={e => this.handleEnter(e)}
+                            />)
                           }
                         </FormItem>
 
@@ -402,13 +402,15 @@ export default class popCheck extends Component {
                           size="default"
                           className="send"
                           onClick={() => this.setState({ showIm: false })}
-                        >关闭</Button>
+                        >关闭
+                        </Button>
                         <Button
                           type="primary"
                           size="default"
                           className="send"
-                          onClick={(e) => this.handleSubmit(e)}
-                        >发送</Button>
+                          onClick={e => this.handleSubmit(e)}
+                        >发送
+                        </Button>
                       </div>
                     </div>
                   </div>
